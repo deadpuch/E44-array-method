@@ -59,7 +59,7 @@ function getCountryData() {
 
   document.getElementById("flagcontainer").innerHTML=""
 
-  fetch("https://restcountries.com/v3.1/al")
+  fetch("https://restcountries.com/v3.1/all")
     .then((response) => {
       return response.json();
     })
