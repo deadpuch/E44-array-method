@@ -56,28 +56,44 @@ newfetchdata();
 // 4. Write a function "getCountryData" that fetches data from the public API " https://restcountries.com/v3.1/all ". Parse the JSON response and log the data to the console. Additionally, use DOM manipulation to display the data on the web page. Make sure to handle any errors that might occur during the fetch operation and display an appropriate error message in the div if the fetch fails. (deploy the webpage on github)
 
 function getCountryData() {
-  fetch("https://restcountries.com/v3.1/all")
+
+  document.getElementById("flagcontainer").innerHTML=""
+
+  fetch("https://restcountries.com/v3.1/al")
     .then((response) => {
       return response.json();
-    }) 
+    })
     .then((result) => {
       console.log(result);
 
       result.sort((a, b) => b.name.common.localeCompare(a.name.common));
       result.forEach((country) => {
-        const contain = document.getElementById("dataContainer");
+        
+        const contain = document.createElement("div")
+        contain.className="Conatiner"
 
-        const newcontain = document.createElement("h1");
+   
+        const heading = document.createElement("h1");
+        heading.innerText = country.name.common;
 
-        newcontain.innerText = country.name.common;
+        const divcontainer = document.createElement("img");
+        divcontainer.src=country.flags.png
+        
+        contain.appendChild(heading);
+        contain.appendChild(divcontainer)
+        
+        document.getElementById("flagcontainer").appendChild(contain);
+        
 
-        contain.appendChild(newcontain);
+
       });
     })
     .catch((error) => {
       console.log(error);
-      const container = document.getElementById("dataContainer");
-      container.innerHTML = "Failed to fetch country data. Please try again later."
+      const container = document.createElement("h1");
+      container.innerHTML =error.message
+
+      document.getElementById("flagcontainer").appendChild(container)
+
     });
 }
-
